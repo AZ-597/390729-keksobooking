@@ -50,34 +50,35 @@ var getRandomFeatures = function (arr) {
 var getMockArray = function (arrTitle, arrType, arrFeatures, arrPhotoPath) {
   var mockArray = [];
   for (var i = 0; i < 8; i++) {
-    var mockObj = {};
     var locationX = getRandom(300, 900);
     var locationY = getRandom(130, 630);
-
-    mockObj.author = {};
-    mockObj.author.avatar = 'img/avatars/user0' + (i + 1) + '.png';
-
-    mockObj.offer = {};
-    mockObj.offer.title = arrTitle[getRandom(0, arrTitle.length - 1)];
-    mockObj.offer.address = locationX + ', ' + locationY;
-    mockObj.offer.price = getRandom(1000, 1000000);
-    mockObj.offer.type = arrType[getRandom(0, arrType.length - 1)];
-    mockObj.offer.rooms = getRandom(1, 5);
-    mockObj.offer.guests = getRandom(1, 50);
-    mockObj.offer.checkin = '1' + getRandom(2, 4) + ':00';
-    mockObj.offer.checkout = '1' + getRandom(2, 4) + ':00';
-    mockObj.offer.features = getRandomFeatures(arrFeatures);
-    mockObj.offer.description = '';
-    mockObj.offer.photos = randomPermutation(arrPhotoPath);
-
-    mockObj.location = {};
-    mockObj.location.x = locationX;
-    mockObj.location.y = locationY;
-
+    var mockObj = {
+      author: {
+        avatar: 'img/avatars/user0' + (i + 1) + '.png'
+      },
+      offer: {
+        title: arrTitle[getRandom(0, arrTitle.length - 1)],
+        address: locationX + ', ' + locationY,
+        price: getRandom(1000, 1000000),
+        type: arrType[getRandom(0, arrType.length - 1)],
+        rooms: getRandom(1, 5),
+        guests: getRandom(1, 50),
+        checkin: getRandom(12, 14) + ':00',
+        checkout: getRandom(12, 14) + ':00',
+        features: getRandomFeatures(arrFeatures),
+        description: '',
+        photos: randomPermutation(arrPhotoPath)
+      },
+      location: {
+        x: locationX,
+        y: locationY
+      }
+    };
     mockArray.push(mockObj);
   }
   return mockArray;
 };
+
 
 var mockData = getMockArray(
     OFFER_TITLE_LIST,
@@ -85,7 +86,6 @@ var mockData = getMockArray(
     OFFER_FEATURES_LIST,
     OFFER_PHOTOS_LIST
 );
-// console.log(mockData);
 
 
 /* ------------------- Part 2 ------------------- */
@@ -97,20 +97,12 @@ mapEl.classList.remove('map--faded');
 /* ------------------- Part 3 ------------------- */
 
 var template = document.querySelector('template');
-// console.log(template);
 
 var mapPinTemplate = template.content.querySelector('.map__pin');
-// console.log(mapPinTemplate);
 
 var createNewPin = function (title, avatar, x, y) {
   var newPin = mapPinTemplate.cloneNode(true);
   var newPinImg = newPin.querySelector('img');
-
-  /* var PIN_WIDTH = 50;
-  var PIN_HEIGHT = 70;
-  var PIN_OFFSET_X = PIN_WIDTH / 2;
-  var PIN_OFFSET_Y = PIN_HEIGHT; */
-
   newPin.style = 'left: ' + (x - 25) + 'px; top: ' + (y - 70) + 'px;';
   newPinImg.src = avatar;
   newPinImg.alt = title;
@@ -125,7 +117,6 @@ var renderPins = function (arr) {
   var fragment = document.createDocumentFragment();
   for (var i = 0; i < arr.length; i++) {
     var child = createNewPin(arr[i].offer.title, arr[i].author.avatar, arr[i].location.x, arr[i].location.y);
-    // console.log(child);
     fragment.appendChild(child);
   }
   mapPins.appendChild(fragment);
@@ -136,26 +127,12 @@ renderPins(mockData);
 /* ------------------- Part 5 ------------------- */
 
 var mapCardTemplate = template.content.querySelector('.map__card');
-// console.log(mapCardTemplate);
-var translateCardType = function (str) {
-  var translated = '';
-  switch (str) {
-    case 'flat':
-      translated = 'Квартира';
-      break;
-    case 'bungalo':
-      translated = 'Бунгало';
-      break;
-    case 'house':
-      translated = 'Дом';
-      break;
-    case 'palace':
-      translated = 'Дворец';
-      break;
-    default:
-      translated = str;
-  }
-  return translated;
+
+var translateCardType = {
+  'flat': 'Квартира',
+  'bungalo': 'Бунгало',
+  'house': 'Дом',
+  'palace': 'Дворец'
 };
 
 var createCardPhotos = function (card, arr) {
@@ -182,10 +159,10 @@ var createCard = function (obj) {
   cardAddress.textContent = obj.offer.address;
 
   var cardPrice = card.querySelector('.popup__text--price');
-  cardPrice.textContent = obj.offer.price;
+  cardPrice.textContent = obj.offer.price + String.fromCharCode(8381) + '/ночь';
 
   var cardType = card.querySelector('.popup__type');
-  cardType.textContent = translateCardType(obj.offer.type);
+  cardType.textContent = translateCardType[obj.offer.type];
 
   var cardCapacity = card.querySelector('.popup__text--capacity');
   cardCapacity.textContent = obj.offer.rooms + ' комнаты для ' + obj.offer.guests + ' гостей';
