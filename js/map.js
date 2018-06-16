@@ -90,8 +90,8 @@ var mockData = getMockArray(
 
 /* ------------------- Part 2 ------------------- */
 
-var mapEl = document.querySelector('.map');
-mapEl.classList.remove('map--faded');
+// var mapEl = document.querySelector('.map'); //  <<<------------------------------go to activate.js
+// mapEl.classList.remove('map--faded'); //  <<<------------------------------------go to activate.js
 
 
 /* ------------------- Part 3 ------------------- */
@@ -122,7 +122,7 @@ var renderPins = function (arr) {
   mapPins.appendChild(fragment);
 };
 
-renderPins(mockData);
+// renderPins(mockData); <<<------------------------------------------------------!!!!!
 
 /* ------------------- Part 5 ------------------- */
 
@@ -184,4 +184,4 @@ var createCard = function (obj) {
   mapEl.appendChild(card);
 };
 
-createCard(mockData[1]);
+// createCard(mockData[1]); <<<------------------------------------------------------!!!!!
