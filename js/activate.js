@@ -15,9 +15,9 @@ appointDisabledState(true, adFormFieldSets);
 
 // Активация
 var mapPinMain = document.querySelector('.map__pin--main');
+var mapEl = document.querySelector('.map');
 
 var activateApp = function () {
-  var mapEl = document.querySelector('.map');
   mapEl.classList.remove('map--faded');
 
   adForm.classList.remove('ad-form--disabled');
@@ -43,6 +43,7 @@ var fillAddress = function (evt) {
 var onMapPinMainMouseup = function (evt) {
   activateApp();
   fillAddress(evt);
+  renderPins(mockData);
 };
 
 mapPinMain.addEventListener('mouseup', onMapPinMainMouseup);
