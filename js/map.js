@@ -1,7 +1,5 @@
 'use strict';
 
-/* ------------------- Part 1 ------------------- */
-
 var OFFER_TITLE_LIST = [
   'Большая уютная квартира',
   'Маленькая неуютная квартира',
@@ -26,11 +24,11 @@ var OFFER_PHOTOS_LIST = [
   'http://o0.github.io/assets/images/tokyo/hotel2.jpg',
   'http://o0.github.io/assets/images/tokyo/hotel3.jpg'
 ];
-// Генератор случайного числа в заданном диапазоне
+
 var getRandom = function (min, max) {
   return Math.round(Math.random() * (max - min) + min);
 };
-// Тасование Фишера — Йетса
+
 var randomPermutation = function (arr) {
   var originalArray = arr.slice(0);
   var randomArray = [];
@@ -41,7 +39,7 @@ var randomPermutation = function (arr) {
   }
   return randomArray;
 };
-// Получение массива случайной длины из другого массива
+
 var getRandomFeatures = function (arr) {
   var featuresArray = randomPermutation(arr);
   return featuresArray.slice(0, getRandom(1, featuresArray.length));
@@ -79,22 +77,12 @@ var getMockArray = function (arrTitle, arrType, arrFeatures, arrPhotoPath) {
   return mockArray;
 };
 
-
 var mockData = getMockArray(
     OFFER_TITLE_LIST,
     OFFER_TYPE_LIST,
     OFFER_FEATURES_LIST,
     OFFER_PHOTOS_LIST
 );
-
-
-/* ------------------- Part 2 ------------------- */
-
-var mapEl = document.querySelector('.map');
-mapEl.classList.remove('map--faded');
-
-
-/* ------------------- Part 3 ------------------- */
 
 var template = document.querySelector('template');
 
@@ -108,23 +96,6 @@ var createNewPin = function (title, avatar, x, y) {
   newPinImg.alt = title;
   return newPin;
 };
-
-
-/* ------------------- Part 4 ------------------- */
-
-var renderPins = function (arr) {
-  var mapPins = document.querySelector('.map__pins');
-  var fragment = document.createDocumentFragment();
-  for (var i = 0; i < arr.length; i++) {
-    var child = createNewPin(arr[i].offer.title, arr[i].author.avatar, arr[i].location.x, arr[i].location.y);
-    fragment.appendChild(child);
-  }
-  mapPins.appendChild(fragment);
-};
-
-renderPins(mockData);
-
-/* ------------------- Part 5 ------------------- */
 
 var mapCardTemplate = template.content.querySelector('.map__card');
 
@@ -183,5 +154,3 @@ var createCard = function (obj) {
 
   mapEl.appendChild(card);
 };
-
-createCard(mockData[1]);
