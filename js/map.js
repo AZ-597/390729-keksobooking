@@ -110,24 +110,6 @@ var createNewPin = function (title, avatar, x, y) {
 };
 
 
-/* ------------------- Part 4 ------------------- */
-
-var renderPins = function (arr) {
-  var mapPins = document.querySelector('.map__pins');
-  var fragment = document.createDocumentFragment();
-
-  for (var i = 0; i < arr.length; i++) {
-    var child = createNewPin(arr[i].offer.title, arr[i].author.avatar, arr[i].location.x, arr[i].location.y);
-    var data = arr[i];
-    var onMapPinClick = function () {
-      createCard(data);
-    };
-    child.addEventListener('click', onMapPinClick); //-------?
-    fragment.appendChild(child);
-  }
-  mapPins.appendChild(fragment);
-};
-
 // renderPins(mockData); <<<------------------------------------------------------!!!!!
 
 /* ------------------- Part 5 ------------------- */
