@@ -171,5 +171,3 @@ var createCard = function (obj) {
 
   mapEl.appendChild(card);
 };
-
-// createCard(mockData[1]); <<<------------------------------------------------------!!!!!

@@ -43,16 +43,18 @@ var fillAddress = function (evt) {
 var renderPins = function (arr) {
   var mapPins = document.querySelector('.map__pins');
   var fragment = document.createDocumentFragment();
-
-  for (var i = 0; i < arr.length; i++) {
-    var child = createNewPin(arr[i].offer.title, arr[i].author.avatar, arr[i].location.x, arr[i].location.y);
-    var data = arr[i];
-    var onMapPinClick = function () { // <<<---------------------?
-      createCard(data);
+  arr.forEach(function (item) {
+    var child = createNewPin(item.offer.title, item.author.avatar, item.location.x, item.location.y);
+    var onMapPinClick = function () {
+      var oldCard = mapEl.querySelector('.map__card');
+      if (oldCard) {
+        oldCard.remove();
+      }
+      createCard(item);
     };
-    child.addEventListener('click', onMapPinClick); // <<<---------------------?
+    child.addEventListener('click', onMapPinClick);
     fragment.appendChild(child);
-  }
+  });
   mapPins.appendChild(fragment);
 };
 
