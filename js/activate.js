@@ -1,6 +1,5 @@
 'use strict';
 
-// Деактивированное состояние -- полностью блокируем форму
 var appointDisabledState = function (state, arr) {
   for (var i = 0; i < arr.length; i++) {
     var fieldset = arr[i];
@@ -12,8 +11,6 @@ var adForm = document.querySelector('.ad-form');
 var adFormFieldSets = adForm.querySelectorAll('fieldset');
 appointDisabledState(true, adFormFieldSets);
 
-
-// Активация
 var mapPinMain = document.querySelector('.map__pin--main');
 var mapEl = document.querySelector('.map');
 
