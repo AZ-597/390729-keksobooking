@@ -1,5 +1,7 @@
 'use strict';
 
+var KEY_CODE_ESC = 27;
+
 var OFFER_TITLE_LIST = [
   'Большая уютная квартира',
   'Маленькая неуютная квартира',
@@ -151,6 +153,18 @@ var createCard = function (obj) {
   var oldPhoto = cardPhotos.querySelector('.popup__photo');
   cardPhotos.appendChild(createCardPhotos(card, obj.offer.photos));
   cardPhotos.removeChild(oldPhoto);
+
+  var cardCloseBtn = card.querySelector('.popup__close');
+
+  var onCardCloseBtnClick = function (evt) {
+    var popup = mapEl.querySelector('.popup');
+    var currentTarget = evt.currentTarget;
+    if (currentTarget = popup) {
+      popup.remove();
+      document.removeEventListener('keydown', onDocumentKeydown);
+    }
+  };
+  cardCloseBtn.addEventListener('click', onCardCloseBtnClick);
 
   mapEl.appendChild(card);
 };

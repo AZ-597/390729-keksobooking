@@ -48,6 +48,16 @@ var renderPins = function (arr) {
         oldCard.remove();
       }
       createCard(item);
+      // тут начинается адок
+      var onDocumentKeydown = function (evt) {
+        var popup = mapEl.querySelector('.popup');
+        if (evt.keyCode === KEY_CODE_ESC) {
+          popup.remove();
+          document.removeEventListener('keydown', onDocumentKeydown);
+        }
+      };
+      document.addEventListener('keydown', onDocumentKeydown);
+      // тут отпустило...
     };
     child.addEventListener('click', onMapPinClick);
     fragment.appendChild(child);
