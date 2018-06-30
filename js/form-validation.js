@@ -3,6 +3,21 @@
 var adHouseType = document.querySelector('#type');
 var adPrice = document.querySelector('#price');
 
+var adHouseTypeMinPrice = {
+  'bungalo': 0,
+  'flat': 1000,
+  'house': 5000,
+  'palace': 10000
+};
+
+var onAdHouseTypeChange = function (evt) {
+  var target = evt.target;
+  adPrice.min = adPrice.placeholder = adHouseTypeMinPrice[target.value];
+};
+
+adHouseType.addEventListener('change', onAdHouseTypeChange);
+
+/*
 var onAdHouseTypeChange = function (evt) {
   var target = evt.target;
   switch (target.value) {
@@ -23,10 +38,11 @@ var onAdHouseTypeChange = function (evt) {
       break;
   }
 };
+*/
 
-adHouseType.addEventListener('change', onAdHouseTypeChange);
 
-
+// ------------------------------------------------------ //
+/*
 var adTimein = document.querySelector('#timein');
 var adTimeout = document.querySelector('#timeout');
 
@@ -45,8 +61,22 @@ var onAdTimeoutChange = function (evt) {
 
 adTimein.addEventListener('change', onAdTimeinChange);
 adTimeout.addEventListener('change', onAdTimeoutChange);
+*/
+// *************** //
+var adTimeInOut = document.querySelectorAll('#timein, #timeout');
 
+var onAdTimeInOutChange = function (evt) {
+  var target = evt.target;
+  adTimeInOut.forEach(function (input) {
+    input.value = target.value;
+  });
+};
 
+adTimeInOut.forEach(function (input) {
+  input.addEventListener('change', onAdTimeInOutChange);
+});
+
+// ------------------------------------------------------ //
 var adRoomNumber = document.querySelector('#room_number');
 var adHouseCapacity = document.querySelector('#capacity');
 
