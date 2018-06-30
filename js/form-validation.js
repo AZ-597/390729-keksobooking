@@ -77,6 +77,7 @@ adTimeInOut.forEach(function (input) {
 });
 
 // ------------------------------------------------------ //
+/*
 var adRoomNumber = document.querySelector('#room_number');
 var adHouseCapacity = document.querySelector('#capacity');
 
@@ -92,3 +93,32 @@ var onAdRoomNumberChange = function (evt) {
 };
 
 adRoomNumber.addEventListener('change', onAdRoomNumberChange);
+*/
+
+var adRoomNumber = document.querySelector('#room_number');
+var adHouseCapacity = document.querySelector('#capacity');
+
+var onAdRoomNumberChange = function (evt) {
+  var target = evt.target;
+  if (adHouseCapacity.value > target.value) {
+    console.log('Слишком много гостей!');
+    // target.setCustomValidity('Слишком много гостей!');
+    target.setCustomValidity('Слишком мало комнат!');
+  } else if (adHouseCapacity.value <= target.value) {
+    target.setCustomValidity('');
+  }
+};
+var adHouseCapacityChange = function (evt) {
+  var target = evt.target;
+  if (adRoomNumber.value < target.value) {
+    console.log('Слишком мало комнат!');
+    target.setCustomValidity('Слишком мало комнат!');
+    // target.setCustomValidity('Слишком много гостей!');
+  } else if (adRoomNumber.value >= target.value) {
+    target.setCustomValidity('');
+  }
+};
+
+adRoomNumber.addEventListener('change', onAdRoomNumberChange);
+adHouseCapacity.addEventListener('change', adHouseCapacityChange);
+// в разметке закомментированы варианты "100 комнат" и "не для гостей"!
